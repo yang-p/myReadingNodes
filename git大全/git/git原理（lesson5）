@@ -1,0 +1,27 @@
+repository本地仓库分为两大部分：
+						workspace工作区【本地仓库里面的文件及文件夹】
+						index/stage暂存区【.git文件就是一个暂存区】
+
+本地仓库的流程：
+					git add         git commit				checkout
+		工作区workspace------------>暂存区stage----------->本地仓库repository-------------->工作区workspace
+
+本地的git的四种状态：
+					Untracked	工作区中没有跟踪的状态（新加的文件都没有跟踪）
+					Unmodified	在仓库中的状态
+					Modified	工作区中对已跟踪的文件已经进行了修改
+					Staged		在暂存区时的状态
+
+本地仓库和远程仓库流程：
+					push
+		repository------------> remote
+u
+				fetch/clone
+		remote--------------->repository
+
+				  pull
+		remote------------->workspace	
+
+				
+
+remote远程仓库：

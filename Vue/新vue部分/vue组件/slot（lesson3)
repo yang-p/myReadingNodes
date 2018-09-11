@@ -1,0 +1,29 @@
+单个(匿名)slot的使用：
+                在子组件的html模板中，添加slot元素，slot元素的内容为html中的标签。【slot中的内容被称为备用内容】
+                如果不在子组件中添加内容，那么默认是渲染slot元素中的内容，
+                如果在子组件中添加内容，那么这些内容会替换掉slot元素及其内容，并渲染出来。
+
+            注意点： 
+                    子组件中的slot元素的内容作用域为该组件本身
+                    html模板中有多个匿名的slot元素时，他们的内容都能被渲染，但是控制台会报错。
+
+
+具名slot:  
+            给slot元素指定一个name属性就叫具名slot否则叫匿名slot，可以分发多个内容，具名slot可以和单个(匿名)slot共存。
+            用法：
+                在组件的html模板中添加slot元素，并给该slot元素添加name属性，属性值根据模块功能确定。
+                然后在组件的内容中的html标签添加slot属性，属性值为该组件的slot元素的name属性的属性值。
+
+            注意点：
+                    组件的内容如果没有设置slot属性来指定要分发到哪个slot元素，默认分发给组件的匿名slot元素，
+                    如果组件的html模板中没有匿名slot元素，那么那些未指定slot属性的内容将会被抛弃。
+
+
+作用域插槽:
+            给组件的内容包裹一层template元素，设置slot-scope属性，属性值为props
+            然后在slot元素设置自定义属性，组件的内容通过props接收slot元素中的自定义属性的属性值
+            注意点: props默认指向的是匿名slot,如果template设置了slot属性，那么props指向某个具名slot元素。
+
+访问slot:
+            this.$slots.<名称> 访问某个具名slot元素
+            this.$slots.defalut 访问匿名slot元素

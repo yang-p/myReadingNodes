@@ -1,0 +1,8 @@
+用法：
+		<!-- ko foreach: {data: arr,afterRender: callback} --><!-- /ko -->
+
+afterRender
+afterAdd
+beforeRemove
+beforeMove
+afterMove

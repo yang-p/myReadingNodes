@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数字输入框</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <number-input :style='style'></number-input>
+        <change-number :style='style'></change-number>
+    </div>
+    <script>
+        let bus = new Vue()
+        let NumberInput = {
+            template: `<div style='style'>
+                <input type='number' v-model='num'/>
+            </div>`,
+            data() {
+                return {
+                    num: 0,                 
+                }
+            },
+            mounted () {
+                bus.$emit('changenum',this.num)
+            }
+        }
+        let ChangeNumber = {
+            template: `<div style='style'>
+                <button @click='reduceNum'>-</button>
+                <button @click='addNum'>+</button>
+            </div>`,
+            methods: {
+                reduceNum() {
+                    console.log('111')
+                    bus.$on('changenum',(data) => {
+                        console.log('reduce函数的：',data)
+                    })                    
+                },
+                addNum() {
+                    bus.$on('changenum',(data) => {
+                        console.log('addNum函数的：',data)
+                    })
+                }
+            }
+        }
+        let vm = new Vue({
+            el: '#app',
+            components: {
+                NumberInput,
+                ChangeNumber
+            },
+            data: {
+                style: {
+                    'display': 'inline-block'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

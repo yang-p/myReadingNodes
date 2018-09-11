@@ -1,0 +1,20 @@
+以图形的方式打印git提交日志：
+                git log -pretty=format:'%h %ad | %s%d' -graph -date=short
+
+要使用别名需要先设置别名
+设置别名：
+        git config --global alias.<一般取git命令的前两位>  <git命令>
+
+        第二种设置别名的方法：
+                            在.gitconfig文件中修改
+                                比如：
+                                    ad = add .
+                                    ci = commit
+
+
+存储凭证：
+        由于使用http协议时，每次push到远程仓库时都需要用户名和密码，而凭证是在第一次push到远程仓库后就将
+        用户名和密码保存下来
+
+        配置凭证：
+                git config --global credential.helper wincred

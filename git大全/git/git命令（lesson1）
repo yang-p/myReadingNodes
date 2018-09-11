@@ -1,0 +1,17 @@
+git 打印所有的命令
+git help -a 查看全部git子命令
+git init 初始化本地仓库
+git add <file> 添加文件
+git status	查看状态 
+git commit	提交
+git push	推送到仓库
+git pull 从远程仓库拉取数据
+git clone 从远程仓库拷贝数据
+
+git blame <filename>
+git blame -L <从第几行开始>,<查看多少行> <filename>
+git reset HEAD 回退操作
+
+git clean -n 列出打算清除的档案
+git clean -f 真正的删除
+git clean x 连.gitignore中忽略的档案也清除

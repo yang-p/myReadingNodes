@@ -1,0 +1,12 @@
+自定义绑定：
+			步骤：
+					第一步，注册绑定 ko.bindingHandlers.自定义的绑定名称 = {options}
+							options的两个函数，init、update
+							这两个函数的参数，
+											element 		实参为绑定的dom元素，
+											valueAccessor	通过valueAccessor()得到应用到这个绑定的model上的当前属性值
+											allBindingsAccessor	通过allBindingsAccessor()得到应用到这个绑定的model上的所有属性值
+											viewModel	传递给ko.applyBindings的viewMode参数，如果是模板内部，那么该参数传递给该模板的数据。
+
+							init回调：
+										ko在dom元素使用自定义绑定的时候，会调用init的回调函数

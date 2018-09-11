@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper {
+            margin: 100px auto;
+            width: 400px;
+            height: 450px;
+            border: 1px solid #333;
+        }
+        .header {
+            width: 100%;
+            height: 50px;
+        }
+        .content {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-color: #f2f2f2;
+        }
+        .content1 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <tab-card></tab-card>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        Vue.component('tab-card',{
+            template: `<div class='wrapper'>
+                <div class='header'>
+                    <button>选项1</button>
+                    <button>选项2</button>
+                    <button>选项3</button>
+                </div>
+                <div class='content'>
+                    <div class='content1' v-show='true'>内容1</div>
+                    <div class='content1' v-show='false'>内容2</div>
+                    <div class='content1' v-show='false'>内容3</div>  
+                </div>
+            </div>`,
+        })
+        let vm = new Vue({
+            el: '#app',
+        })
+    </script>
+</body>
+</html>

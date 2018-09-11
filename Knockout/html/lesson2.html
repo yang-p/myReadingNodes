@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>验证码</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<script src="../js/knockout-3.4.2.min.js"></script>
+
+</head>
+<body>
+	<ul data-bind="foreach: flut" id="forE">
+		<li>
+			<span data-bind="text: name"></span>
+			<!-- <span data-bind="text: price"></span> -->
+			<span data-bind="text: $index"></span>
+			<!-- <span data-bind="text: $data"></span> -->
+			<button data-bind="click: function(index){console.log('啊啊',$parent)}">删除</button>
+		</li>
+	</ul>
+<script>
+	var myViewModel = {
+		flut: ko.observableArray([{'name': 'apple',"price":2},{"name": "oringe", "price":3},{"name": "mellon", "price":4},{"name": "bananer", "price":5}]),
+		dele: function(index) {
+			console.log(index)
+		}
+	}
+ko.applyBindings(myViewModel,document.getElementById('forE'))
+</script> 
+</body>
+</html>

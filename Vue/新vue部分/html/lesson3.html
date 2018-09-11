@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <my-component ref="yang">
+                <template slot-scope='props' slot='header'>
+                        <p slot="header">header <a href="">{{props.msg}}</a></p>
+                        <p slot="main">内容main, {{props.msg}}</p>
+                </template>
+               
+            </my-component>
+        </ul>
+    </div>
+   <script>
+    //    let bus = new Vue()
+    //    let data = {
+    //        counter: 0
+    //    }
+       Vue.component('MyComponent',{
+           template: `<div>
+           <button @click="aaa">子组件按钮</button>
+           <slot name='header' msg='我是header啊'></slot>
+           <slot name='main' msg='我是main啊'></slot>
+           <slot msg='来自子组件的内容'></slot>
+           </div>`,
+           data() {
+               return {
+                   counter: 0,
+                   yp: 'hello yang'
+               }
+           },
+           methods: {
+               aaa() {
+                   console.log('查看my-component的父组件：',this.$parent)
+               }
+           },
+           mounted() {
+            console.log('this.$slots.header',this.$slots)
+            console.log('this.$slots.defalut',this.$slots.defalut)
+        }
+       })
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            msg: 'hello'
+        },
+        methods: {
+            handleChange(data) {
+                console.log('测试子组件传递过来的数据：',data)
+            }
+        },
+        mounted() {
+            // console.log('查看子组件的this.$slots.header：',this.$slots.header)
+            // console.log('查看子组件的this.$slots.defalut',this.$slots.defalut)
+        }
+    })
+   </script> 
+</body>
+</html>

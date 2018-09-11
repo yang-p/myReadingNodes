@@ -1,0 +1,20 @@
+本地协议：
+        克隆本地仓库： git clone /c/wd/test.git
+        添加远程仓库的链接：    git remote add origin /c/wd/test.git
+git协议：
+        克隆远程仓库：git clone  git://server_ip/test.git
+        添加远程仓库的链接：git remote add origin git://server_ip/test.git
+http协议：
+        克隆远程仓库：git clone  https://server_ip/test.git
+        添加远程仓库的链接：git remote add origin https://server_ip/test.git
+ssh协议：
+        克隆远程仓库：git clone  ssh://git@github.com/yang-p/test.git
+                    git clone git@github.com:yang-p/test.git
+        添加远程仓库的链接：git remote add origin git@github.com:yang-p/test.git
+
+配置ssh协议：
+           1、 生成密钥对： ssh-keygen -t rsa -C "github的登录邮箱"
+                生成两个文件，一个存放私有密钥对id_rsa文件，一个存放公有秘钥对id_rsa.pub文件
+                   
+            2、将公有的密钥对配置在github的设置的ssh选项中。
+            3、通过ssh协议链接到远程仓库

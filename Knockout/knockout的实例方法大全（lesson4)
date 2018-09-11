@@ -1,0 +1,70 @@
+ko.applyBindings(object,[document.getElementById('id')])
+					作用：给某个元素及其子元素激活knockout功能
+					参数详解：
+								第一个参数是一个普通对象，该对象简称【viewModel】，其里面的属性可以直接绑定在dom元素上。
+								第二个参数为可选参数，当该参数存在时，第一个对象中的属性就只会在该dom元素及其子元素的作用域生效。
+
+ko.observable('viewModel的某个属性的属性值')
+					作用：监听视图模型中属性的值变化，当该属性值变化时，视图层也会随着变化。
+					监控属性的读、写：
+							读： 被监控（使用了ko.observable）的属性可以通过 viewModel.attr()获取到该属性的值
+							写： 被监控的属性通过viewModel.attr('newValue') //newValue将替换旧的value
+			      			注意点：将多个监控属性写入值时可进行链式调用，viewModel.attr1('newVal1').attr2('newVal2').attr3('newVal3')
+
+					注意点：
+							1、由于IE低版本不支持JavaScript的getter和setter属性，所以为了兼容性ko.observable监控的对象都是函数。
+							2、通过viewModel.attr()形式修改的属性可以响应到视图层。
+
+ko.observableArray([{...},{...},{...},...])	
+					监控传入的该数组的任意一个对象的变化，对象的删除、添加
+					ko.observableArray().push(newObj)	
+
+					注意点：
+							1、ko.observableArray和ko.observable的功能类似，只不过一个是监控对象变化，一个监控对象的属性变化。
+							2、ko在原生js操作数组的方法上进行了封装，好处是兼容所有浏览器，在操作数组时自动触发依赖跟踪，语法更方便。
+							3、原生js使用push方法：ko.observableArray().push(),ko使用push方法：ko.observableArray.push()
+								ko封装的操作数组的方法如下：
+															indexOf('参数')  数组中的某个片段与参数匹配时，返回索引值，不匹配则返回-1  
+
+															slice
+															...
+															只要是原生操作数组有的方法，ko都进行了封装，功能等价，唯一区别是封装的方法改变
+															数组时可以通知订阅者。
+
+															ko新增操作数组的方法：
+																		remove 		ko.observableArray().remove(function(item){return item})	
+																					删除return为true的元素，并将这些删除的元素作为一个数组返回出来。
+
+																		removeAll	
+
+
+
+ko.observables({...}) 
+					监控传入的该对象的变化，比如添加、修改、删除对象里面的属性。
+
+
+
+
+
+
+
+
+
+ko.dependentObservable(function(){},obj)
+					注意点：
+							第二个参数obj会导致函数里面的this指向，如果第二个参数不存在则无效
+
+ko.computed(function(){},viewModel)
+				作用：计算属性
+
+				强制使依赖监控属性更改时通知订阅者:
+							ko.computed(....).extend({notify: 'always'})
+
+				延迟或禁止更改通知：
+							ko.computed({rateLimit: 50})
+
+可写的计算属性：
+
+
+确定属性是否是计算的可观察对象：ko.isComputed
+

@@ -1,0 +1,34 @@
+递归组件：
+        组件的选项中，不但有常见的data、methods、computed等属性，并且还有name属性，给组件设置name选项，
+        name的属性值为该组件的组件名，然后在该组件的模板内可以递归的调用自己，但是需要给出一个条件防止它无限调用的死循环。
+
+        应用场景：级联选择器、树型控件
+
+内联模板：
+        组件的html模板默认是在组件的template选项属性中定义的。
+        内联模板： 给组件添加一个inline-template属性，此时该组件的内容将会被当做一个html模板,而不会再分发给该组件的slot元素，
+                    并且该组件的内容可以直接访问该组件或父级组件的实例对象的数据。如果子组件和父组件都有同一个数据，那么优先选择子组件的。
+
+动态组件：
+        vue提供了一个特殊的元素，component用来动态的挂载不同的组件，使用is属性来选择要挂载的组件。（is属性的属性值就是组件名）
+
+异步组件：
+        Vue.component('my-component',function(resolve,reject){
+            setimeout(() => {
+                resolve({template: '<div>...</div>'})
+            },1000)           
+        })
+        
+$nextTick :  由于vue是异步更新DOM节点的，
+
+
+X-Templates :   一种定义模板的方式
+                使用方法：给script标签的type的属性值设置为'text/x-template',并添加一个id属性,属性值为组件名，目的是将该script标签的内容作为模板放在该组件上。
+
+
+手动挂载实例：
+            Vue.extend是基础Vue构造器，创建一个子类，参数是一个包含组件选项的对象，Vue.extend({...})
+            $mounted() 手动挂载一个未挂载的实例， new Vue.extend({...}).$mounted()
+            注意点：
+                    $mounted方法会返回实例自身，因此可以实现链式调用其他实例方法
+                         

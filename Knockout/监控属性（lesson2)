@@ -1,0 +1,31 @@
+创建带有监控属性的viewModel
+	监控属性的手动订阅：
+						obj.prop.subscrible(function() {})
+
+	依赖监控属性：
+					obj.newProp = ko.dependentObservable(function() {
+						return this.prop1() + '' + this.prop2(); //this指的是obj,该方法类似于vue中的计算属性
+					},obj)
+	依赖监控属性链：
+					某个属性依赖它的'依赖监控属性'，依赖监控属性又依赖'监控属性'，这种呈现链式的依赖就叫'依赖监控属性链'，
+					并且当'监控属性'的值发生改变时，相应的'依赖监控属性链'上的属性也会发生改变。
+
+	可写的依赖监控属性：
+
+	依赖跟踪的工作原理：
+						subscribe函数：
+
+									有三个参数：
+												第一个参数，回调函数，该函数是每当通知发生(可观察的对象发生更改时)时，调用该函数。	
+												第二个参数，target(可选)，定义this回调函数的值
+												第三个参数，event(可选)，接收通知的事件的名称，默认是change
+
+									基本使用方法：
+													viewModel.attr.subscribe(function(){},null,"change")
+
+									强制观察者始终通知订阅者：
+													viewModel.attr.extend({notify: 'always'})
+
+									延迟或禁止更改通知：
+													viewModel.attr.extend({rateLimit: 50})		
+

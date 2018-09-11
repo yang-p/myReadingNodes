@@ -1,0 +1,22 @@
+该文件的作用：忽略某一个或某一类文件
+
+在该文件里面的书写格式：
+                        # 这里放注释
+                        # 一行表示忽略一个文件或一类文件
+                        # 忽略project文件#
+                          .project
+                        # 忽略格式为.exe的所有文件#
+                          *.exe
+
+换行符：
+      CR 回车 \r
+      LF 换行 \n
+
+      linux换行：\n
+      windows换行： \r\n
+      mac换行: \r
+
+      由于git是Linux配置，所以在windows命令行中提交文件时，会报警告信息，
+     不报警告信息的修改配置：
+                           git config --global core.safecrlf false
+                         

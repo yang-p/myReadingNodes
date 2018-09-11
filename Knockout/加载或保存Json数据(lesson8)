@@ -1,0 +1,20 @@
+加载或保存数据：
+				保存：将viewModel对象转换成json格式
+				加载：更新接收到的数据到viewmodel上
+
+Mapping插件：
+			作用：将js对象mapping到带有observable值的viewModel
+
+			使用：
+					通过ko.mapping.formJS函数创建viewModel：	ko.mapping.formJS(data,viewModel) //将原生js对象data转换成viewModel对象。
+					viewModel的所有属性值都被转换成observable类型的值
+
+					通过ko.mapping.toJS(viewModel)将map过的对象转换成原来的js对象。
+					注意点：
+							ko.mapping.toJS(viewModel)会返回一个对象，该对象只包含之前map过的对象属性，在viewmodel上
+							添加或删除的属性都会被忽略，但是_destroy属性会被包含在内。
+
+					通过ko.mapping.fromJSON函数（当ajax返回的数据是未转换成js对象的字符串格式）创建viewMo。
+
+
+					通过ignore忽略不需要map的属性

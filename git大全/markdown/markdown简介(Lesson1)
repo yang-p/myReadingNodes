@@ -1,0 +1,13 @@
+markdown简介：
+				一种轻量，易于书写的，纯文本格式的语法，
+				用来在互联网上书写带有格式的文档。
+
+makdown的文件后缀名为：.md
+
+以下几种可以直接进行markdown编辑：
+					github
+					git命令行中的vim
+					简书
+					百度脑图
+					hbuilder
+					...

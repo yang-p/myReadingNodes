@@ -1,0 +1,43 @@
+template绑定
+			作用：通过模板将数据render到页面
+			使用：
+					第一步，首先引入jQuery文件和juqury.tmpl文件，并且在nkockout文件引入之前引入。
+					第二步，创建script元素，type设置为'text/html', 设置id属性,比如templ
+					第三步，在html中的某个dom元素设置data-bind="template: templ"
+					第四步，在另一个
+
+			参数：
+					name						属性值为需要render的模板id【参数要加引号】
+					data 						需要render到模板的数据
+					foreach 					指定ko按照foreach模式render模板
+					afterAdd或beforeRemove 		在foreach模式下使用callback函数
+					templateOptions				在render模板的时候，传递额外数据以便使用
+					afterRender 				参考下方的注意点
+
+			例子：
+					<div data-bind="template: {name: '', data: xxx}"></div>
+
+			注意点：
+					${val} 和 data-bind="text: xxx"的区别：
+							${val} 中的值发生改变时将重新渲染整个模板
+							data-bind="text: xxx"中的text绑定的值改变时，只会重新改变该dom元素的内容
+
+					foreach模板模式的好处：
+							1、向foreach绑定的数组添加或删除item时，不会重新render整个模板，当添加item时ko只会
+								将该item render到模板，
+							2、ko允许通过自定义的方式声明afterAdd和beforeRemove的callback函数，进行添加和删除dom元素，
+							该callback函数可以在添加或删除元素时进行一些动画操作
+
+					afterRender参数的用法
+								给afterRender绑定一个callback函数，每当模板引擎render模板后(包扩foreach模式下，添加item时render)，
+								ko都会触发afterRender的callback函数
+
+					动态决定使用那个模板：
+							在viewModle对象里面写一个函数，返回值为模板id的属性值，然后将该函数作为name的参数，此时不加双引号。
+
+							如果用的是foreach模板模式，那么在viewModle对象写的那个函数需要传一个参数，
+							该参数是foreach所绑定的值(数组)的一个元素。
+
+					templateOptions的具体用法：
+							templateOptions对应的参数是对象类型，
+

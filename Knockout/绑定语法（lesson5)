@@ -1,0 +1,152 @@
+绑定操作都需要激活knockout功能，ko.applyBindings(obj) 
+
+visible绑定
+		作用：visible绑定到DOM元素上，该元素是显示还是隐藏取决于绑定的值(也可以绑定函数或表达式)。
+		例子：<p data-bind="visible: isShow"></p>  // isShow是obj的一个属性，其属性值为布尔值类型，当为ture时显示，为false时隐藏。
+		注意点：
+				如果绑定的值是'监控属性'，那么visible状态随该属性的值变化而变化，否则不变化。
+
+text绑定
+		作用：使得该元素的显示的文本内容为绑定的值(也可以绑定函数或表达式)。
+		例子：<p data-bind="text: myText"></p>
+		注意点：
+				如果绑定的值是'监控属性'，那么该dom元素的内容随该属性的值变化而变化，否则不变化。
+				绑定的值如果为对象类型，那么输出的是该属性toString()后的结果
+
+html绑定
+		作用：和text绑定类似，只不过它会将字符串中的html代码识别并解析出来。
+
+css绑定
+		作用：添加或删除一个或多个class到DOM元素上
+		例子：<p data-bind="css: {prop1: true, prop2: false}"></p>  
+				//prop1和prop2是obj的两个属性，后面的值为布尔类型（只要能转换成布尔类型的函数或表达式都可以）
+				//true代表将该属性添加到class中，为false代表从class中删除该属性
+		注意点：
+				如果prop1后面的值是'监控属性'，那么随该属性的值变化而变化，否则只删除或添加一次。
+				添加到class中的变量，其变量名不符合js变量声明规范时，应该将该变量用引号括起来。
+
+
+style绑定
+		作用：添加或删除一个或多个style的值，用法和css绑定类似。
+		注意点：
+				不能用css样式属性写法，而是小驼峰式写法。
+
+attr绑定
+		作用：设置dom元素的任何属性值
+		例子：<a data-bind="{href: url, title: myTitle}"></a>
+		注意点：
+				url、myTitle是绑定的值，当该属性是'监控属性时'，。。。。。。同上。
+				应用的属性名字不是合法的js变量命名，应该加引号。
+
+click绑定
+		作用：给dom元素添加事件句柄，在元素被点击的时候执行定义的js函数。
+		例子：
+			  <div data-bind="click: myClick"></div>
+			  传参给自定义函数写法：
+			  				<div data-bind="click: function(){myClick(param1,param2)}"></div>
+			  访问事件源对象：
+			  				<div data-bind="click: function(e){myClick(e)}"></div> //ko会将事件源对象传递到函数的第一个参数
+
+			  允许执行默认事件（ko默认阻止执行默认事件）：在自定义函数里返回true就可以允许执行默认事件。
+
+			  this指向：	ko在调用定义的函数时，默认会将ko.applyBindings(obj)中的obj传给定义函数的this对象，
+			  				要想this指向其他对象可以通过bind改变this指向。
+
+			  防止事件冒泡：
+			  				例子：<div data-bind="click: myClick, clickBubble: false"></div>
+
+		注意点：
+				定义的js函数也可以不是ko.applyBindings(obj) 中obj的函数。
+				定义在obj上的函数，直接写函数名进行调用<div data-bind="click: myClick"></div>
+				定义在其他对象(比如otherObj)上的函数，需要<div data-bind="click: otherObj.myClick"></div>
+
+event绑定
+		作用：在doma元素上添加指定的事件句柄，在元素被触发时执行定义的js函数。
+		例子：<div data-bind="event: {mouseover: myMouseover,mouseout: myMouseout}"/><div>
+
+		注意点：和click绑定类似，防止事件冒泡的写法：<div data-bind="event: {mouseover: myMouseover}, mouseoverBubble: false"></div>
+
+submit绑定
+		作用：在form表单上添加指定的事件句柄，在form被提交时执行定义的js函数（只能用在form元素上）
+
+		注意点：
+				使用submit绑定时，ko会阻止form表单默认的submit动作。
+				执行默认的submit动作，在submit句柄里返回true
+
+enable绑定
+		作用：使dom元素只有在参数为true时，才有enabled，用于input、select、textarea元素。
+		例子：<div data-bind="enabled: true"></div>
+
+disable绑定
+		作用：和enable用法相同，但是作用相反
+
+value绑定
+		作用：双向数据绑定，用在表单控件中（input、select、textarea）
+		例子：<input type="text" data-bind="value: myValue, valueUpdate: 'change'"/>
+				valueUpdate的几个参数：
+										change		默认值，当失去焦点或select元素被选择的时候更新绑定的值。
+										keyup		当用户敲完一个字符串时更新
+										keypress	正在敲一个字符串但没有释放键盘就立即更新
+									afterkeydwon	当用户开始输入字符串的时候就更新绑定的元素，主要是用来捕获
+													浏览器的keydown事件或异步handle事件。
+
+		注意点：
+				checkbox和radio只能使用checked绑定来读取或写入元素的checked状态
+				value绑定的值必须为‘监控属性或依赖监控属性’才能实现双向数据绑定
+				valueUpdate的参数必须加引号
+
+checked绑定
+		作用：和具有checkable状态的表单控件，当用户check表单元素时，相应的绑定的值也会发生变化，
+			  当绑定的值发生变化，相应的表单元素的check属性也会发生变化。
+
+		复选框：
+				checked绑定的值如果是ko.observable那么check表单元素时，绑定的值的属性值是一个布尔值，
+				如果是ko.observableArray那么check表单元素时，绑定的值的属性值是一个数组，
+				数组的元素时选中的表单元素的value值。
+		单选框：
+				不论是单个还是多个单选按钮，checked绑定的值为ko.observable
+
+options绑定
+		作用:	只能作用于select元素
+				options的参数必须是一个数组(也可以是一个字符串，该字符串会被当做字符串数组，每个字符作为数组的每个元素)，
+				数组中的每一个元素都会作为一个option添加到select元素。
+
+				其他参数：
+							optionsCaption  	由于select默认会选择option项进行显示，该参数的作用是使select默认选择
+												optionsCaption的值进行选择。optionsCaption的值为字符串类型。
+												当设置了optionsCaption时，会在所有option项的最前面添加一个option项，
+												并且value值设置为undefined
+
+							optionsText			参数是一个匿名函数，该函数的参数是数组的每一项item,该函数的返回值将
+												作为每一项option要显示的文本。
+												optionsText: function(item) {reeturn item}
+
+							optionsValue		用法和optionsText一样，作用是该函数的返回值作为option项的value属性的值。
+
+							selectedOptions		作用：对多选下拉列表，读取和设置多个选择项
+													selectedOptions对应的参数是一个observableArray数组(字符串数组也可以)，
+													当数组中的元素与option项的value值对应时，该项就被选中，反之选中哪个option项，
+													它的value值就会添加到该数组中。
+
+
+uniqueName 绑定
+				作用：确保所绑定的元素有一个非空的name属性
+				例子：<div data-bind="uniqueName: true"></div>	
+				
+
+foreach绑定
+			属性：
+					$data 数组循环的每个条目，<li data-bind="text: $data.firstName"></li>
+							可以简写为<li data-bind="text: firstName"></li>
+					$parent
+					$index
+			例子：<div data-bind="foreach: arr">
+					<span data-bind="text: 数组中的元素"></span>
+				</div>
+
+if绑定
+			
+ifnot绑定
+
+with绑定
+
